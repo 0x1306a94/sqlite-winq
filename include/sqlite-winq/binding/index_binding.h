@@ -18,25 +18,37 @@
  * limitations under the License.
  */
 
-#ifndef sqlite_winq_update_value_hpp
-#define sqlite_winq_update_value_hpp
+#ifndef sqlite_winq_index_binding_hpp
+#define sqlite_winq_index_binding_hpp
 
 #include <sqlite-winq/abstract/declare.hpp>
+#include <string>
 
 namespace SQLITEWINQ {
-class Column;
-class Expr;
 
-typedef std::pair<const Column, const Expr> UpdateValue;
-
-class UpdateValueList : public std::list<const UpdateValue> {
+typedef Expr Condition;
+class IndexBinding {
   public:
-    UpdateValueList();
-    UpdateValueList(const UpdateValue &expr);
-    UpdateValueList(std::initializer_list<const UpdateValue> il);
+    IndexBinding(const std::string &indexNameSubfix);
+    const std::string indexNameSubfix;
+
+    void addIndex(const ColumnIndex &index);
+    void setUnique(bool unique);
+    void setCondition(const Condition &condition);
+
+    const ColumnIndexList &getIndexes() const;
+    const Condition &getCondition() const;
+
+    StatementCreateIndex
+    generateCreateIndexStatement(const std::string &tableName) const;
+
+  protected:
+    ColumnIndexList m_indexes;
+    Condition m_condition;
+    bool m_unique;
 };
 
-}  //namespace SQLITEWINQ
+};  // namespace SQLITEWINQ
 
-#endif /* sqlite_winq_update_value_hpp */
+#endif /* sqlite_winq_index_binding_hpp */
 

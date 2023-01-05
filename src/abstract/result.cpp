@@ -18,6 +18,7 @@
  * limitations under the License.
  */
 
+#include <sqlite-winq/abstract/property.hpp>
 #include <sqlite-winq/abstract/result.hpp>
 
 namespace SQLITEWINQ {

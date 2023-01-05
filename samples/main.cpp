@@ -1,28 +1,44 @@
 #include <iostream>
 
 #include <sqlite-winq/abstract/abstract.h>
+#include <sqlite-winq/accessor/cpp_accessor.h>
+#include <sqlite-winq/binding/binding.h>
+#include <sqlite-winq/binding/column_binding.h>
+#include <sqlite-winq/binding/constraint_binding.h>
+#include <sqlite-winq/binding/index_binding.h>
 
-#include "message.hpp"
+#include "message_schema.hpp"
 
 using namespace SQLITEWINQ;
 int main() {
 
-    std::cout << SQLITEWINQ::Message::TableName() << std::endl;
+    std::cout << MessageSchema::TableName() << std::endl;
 
-    std::cout << SQLITEWINQ::Message::uid().inTable(SQLITEWINQ::Message::TableName()).getDescription() << std::endl;
+    std::cout << StatementPragma{}.pragma(Pragma::UserVersion, 1) << std::endl;
+    
+    std::cout << MessageSchema::uid().inTable(MessageSchema::TableName()).count().as(MessageSchema::id()) << std::endl;
 
     const ResultList res{
-        Message::uid(),
+        MessageSchema::AllProperties(),
     };
 
     auto expr = StatementSelect{}
                     .select(res, res.isDistinct())
-                    .from(Message::TableName())
-                    .where(Message::uid().in({"a", "b"}));
-    std::cout << expr.getDescription() << std::endl;
-    auto expr2 = SQLITEWINQ::Expr(SQLITEWINQ::Message::uid().inTable(SQLITEWINQ::Message::TableName()));
-    std::cout << expr2.getDescription() << std::endl;
+                    .from(MessageSchema::TableName())
+                    .where(MessageSchema::uid().in({"a", "b"}));
+    std::cout << expr.getDescription() << ";" << std::endl;
 
+    const Binding &binding = MessageSchema::Bindings();
+    const StatementCreateTable &statement = binding.generateCreateTableStatement(MessageSchema::TableName());
+    std::cout << statement << std::endl;
+
+    const std::shared_ptr<IndexBindingMap> &indexBindingMap = binding.getIndexBindingMap();
+    if (indexBindingMap) {
+        for (const auto &indexBinding : *indexBindingMap.get()) {
+            const StatementCreateIndex &statement = indexBinding.second->generateCreateIndexStatement(MessageSchema::TableName());
+            std::cout << statement << std::endl;
+        }
+    }
     return 0;
 }
 

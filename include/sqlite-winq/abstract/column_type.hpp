@@ -74,7 +74,7 @@ struct ColumnIsTextType : public std::false_type {
 template <typename T>
 struct ColumnIsTextType<
     T,
-    typename std::enable_if<std::is_same<std::string, T>::value ||
+    typename std::enable_if<std::is_same<std::string, T>::value || std::is_same<const std::string, T>::value ||
                             std::is_same<const char *, T>::value>::type>
     : public std::true_type {
 };

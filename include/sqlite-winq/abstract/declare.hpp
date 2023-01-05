@@ -62,6 +62,7 @@ class TableConstraint;
 
 typedef std::pair<const Column, const Expr> UpdateValue;
 
+class ResultList;
 class ColumnList;
 class ColumnDefList;
 class ColumnIndexList;

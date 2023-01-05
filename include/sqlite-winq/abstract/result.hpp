@@ -22,12 +22,11 @@
 #define sqlite_winq_result_hpp
 
 #include <sqlite-winq/abstract/column_result.hpp>
-#include <sqlite-winq/abstract/property.hpp>
 
 namespace SQLITEWINQ {
 
 class ResultList;
-
+class Property;
 class Result : public ColumnResult {
   public:
     Result(const Expr &expr);

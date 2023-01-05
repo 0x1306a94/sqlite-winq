@@ -46,8 +46,22 @@ include_directories(./include)
 file(
   GLOB SELF_TEMP_SRC_FILES
   RELATIVE ${PROJECT_SOURCE_DIR}
+  ./include/sqlite-winq/accessor/*.hpp ./include/sqlite-winq/accessor/*.h)
+source_group(HEADERS/accessor FILES ${SELF_TEMP_SRC_FILES})
+list(APPEND SELF_SRC_FILES ${SELF_TEMP_SRC_FILES})
+
+file(
+  GLOB SELF_TEMP_SRC_FILES
+  RELATIVE ${PROJECT_SOURCE_DIR}
   ./include/sqlite-winq/abstract/*.hpp ./include/sqlite-winq/abstract/*.h)
 source_group(HEADERS/abstract FILES ${SELF_TEMP_SRC_FILES})
+list(APPEND SELF_SRC_FILES ${SELF_TEMP_SRC_FILES})
+
+file(
+  GLOB SELF_TEMP_SRC_FILES
+  RELATIVE ${PROJECT_SOURCE_DIR}
+  ./include/sqlite-winq/binding/*.hpp ./include/sqlite-winq/binding/*.h)
+source_group(HEADERS/binding FILES ${SELF_TEMP_SRC_FILES})
 list(APPEND SELF_SRC_FILES ${SELF_TEMP_SRC_FILES})
 
 file(
@@ -60,10 +74,23 @@ list(APPEND SELF_SRC_FILES ${SELF_TEMP_SRC_FILES})
 file(
   GLOB SELF_TEMP_SRC_FILES
   RELATIVE ${PROJECT_SOURCE_DIR}
-  ./src/abstract/*.cpp ./src/abstract/*.hpp ./src/abstract/*.h)
+  ./src/abstract/*.cpp ./src/abstract/*.cc)
 source_group(SOURCES/abstract FILES ${SELF_TEMP_SRC_FILES})
 list(APPEND SELF_SRC_FILES ${SELF_TEMP_SRC_FILES})
 
+file(
+  GLOB SELF_TEMP_SRC_FILES
+  RELATIVE ${PROJECT_SOURCE_DIR}
+  ./src/binding/*.cpp ./src/binding/*.cc)
+source_group(SOURCES/binding FILES ${SELF_TEMP_SRC_FILES})
+list(APPEND SELF_SRC_FILES ${SELF_TEMP_SRC_FILES})
+
+file(
+  GLOB SELF_TEMP_SRC_FILES
+  RELATIVE ${PROJECT_SOURCE_DIR}
+  ./src/accessor/*.cpp ./src/accessor/*.cc)
+source_group(SOURCES/accessor FILES ${SELF_TEMP_SRC_FILES})
+list(APPEND SELF_SRC_FILES ${SELF_TEMP_SRC_FILES})
 
 add_library(${PROJECT_NAME} STATIC ${SELF_SRC_FILES})
 

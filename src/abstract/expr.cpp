@@ -20,6 +20,8 @@
 
 #include <sqlite-winq/abstract/column.hpp>
 #include <sqlite-winq/abstract/expr.hpp>
+#include <sqlite-winq/abstract/property.hpp>
+#include <sqlite-winq/abstract/result.hpp>
 #include <sqlite-winq/abstract/statement_select.hpp>
 
 namespace SQLITEWINQ {
@@ -53,6 +55,14 @@ Expr::Expr()
 
 Expr::Expr(const Column &column)
     : Describable(column.getName()) {
+}
+
+Result Expr::as(const Property &property) {
+    return Result(*this).as(property);
+}
+
+ResultList Expr::distinct() const {
+    return ResultList(*this).distinct();
 }
 
 Expr Expr::operator!() const {

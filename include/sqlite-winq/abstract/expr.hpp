@@ -28,6 +28,9 @@
 
 namespace SQLITEWINQ {
 
+class Result;
+class Property;
+
 class Expr : public Describable {
   public:
     static const Expr BindParameter;
@@ -50,6 +53,10 @@ class Expr : public Describable {
 
     Expr(const typename ColumnTypeInfo<ColumnType::BLOB>::CType &value,
          int size);
+
+    Result as(const Property &property);
+
+    ResultList distinct() const;
 
     //unary
     Expr operator!() const;

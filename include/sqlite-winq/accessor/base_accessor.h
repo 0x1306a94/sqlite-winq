@@ -18,25 +18,26 @@
  * limitations under the License.
  */
 
-#ifndef sqlite_winq_update_value_hpp
-#define sqlite_winq_update_value_hpp
+#ifndef sqlite_winq_base_accessor_hpp
+#define sqlite_winq_base_accessor_hpp
 
+#include <sqlite-winq/abstract/column_type.hpp>
 #include <sqlite-winq/abstract/declare.hpp>
 
 namespace SQLITEWINQ {
-class Column;
-class Expr;
 
-typedef std::pair<const Column, const Expr> UpdateValue;
+typedef enum : int {
+    AccessorCpp,
+} AccessorType;
 
-class UpdateValueList : public std::list<const UpdateValue> {
+class BaseAccessor {
   public:
-    UpdateValueList();
-    UpdateValueList(const UpdateValue &expr);
-    UpdateValueList(std::initializer_list<const UpdateValue> il);
+    using InstanceType = void *;
+    virtual ColumnType getColumnType() const = 0;
+    virtual AccessorType getAccessorType() const = 0;
 };
 
-}  //namespace SQLITEWINQ
+};  // namespace SQLITEWINQ
 
-#endif /* sqlite_winq_update_value_hpp */
+#endif /* sqlite_winq_base_accessor_hpp */
 

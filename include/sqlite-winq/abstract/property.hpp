@@ -24,17 +24,37 @@
 #include <sqlite-winq/abstract/abstract.h>
 
 namespace SQLITEWINQ {
-class Property : public Column {
+class ColumnBinding;
+
+class PropertyBase {
+  public:
+    PropertyBase(const std::shared_ptr<ColumnBinding> &columnBinding);
+    const std::shared_ptr<ColumnBinding> &getColumnBinding() const;
+
+  protected:
+    void setBinding(const PropertyBase &other);
+    std::shared_ptr<ColumnBinding> m_columnBinding;
+};
+
+class Property : public Column, public PropertyBase {
   public:
     Property(const char *name = "");
     Property(const std::string &name = "");
     Property(const Column &column);
+    Property(const char *name,
+             const std::shared_ptr<ColumnBinding> &columnBinding);
+
+    //distinct
+    ResultList distinct() const;
 
     //table
     Property inTable(const std::string &table) const;
 
     //order
     Order order(OrderTerm term = OrderTerm::NotSet) const;
+
+    //index
+    ColumnIndex index(OrderTerm term = OrderTerm::NotSet) const;
 
     //aggregate functions
     Expr avg(bool distinct = false) const;
@@ -53,6 +73,12 @@ class Property : public Column {
     Expr lower(bool distinct = false) const;
     Expr upper(bool distinct = false) const;
     Expr round(bool distinct = false) const;
+
+    //def
+    ColumnDef def(ColumnType type,
+                  bool isPrimary = false,
+                  OrderTerm term = OrderTerm::NotSet,
+                  bool autoIncrement = false) const;
 
     //condition
     //unary
@@ -113,6 +139,10 @@ class Property : public Column {
     Expr isNotNull() const;
     Expr is(const Expr &operand) const;
     Expr isNot(const Expr &operand) const;
+
+  protected:
+    Property(const Column &column,
+             const std::shared_ptr<ColumnBinding> &columnBinding);
 };
 
 class PropertyList : public std::list<const Property> {

@@ -18,19 +18,53 @@
  * limitations under the License.
  */
 
+#include <sqlite-winq/abstract/column_def.hpp>
 #include <sqlite-winq/abstract/property.hpp>
+#include <sqlite-winq/abstract/result.hpp>
+
+#include <sqlite-winq/binding/column_binding.h>
 
 namespace SQLITEWINQ {
+
+PropertyBase::PropertyBase(const std::shared_ptr<ColumnBinding> &columnBinding)
+    : m_columnBinding(columnBinding) {
+}
+
+const std::shared_ptr<ColumnBinding> &PropertyBase::getColumnBinding() const {
+    return m_columnBinding;
+}
+
+void PropertyBase::setBinding(const PropertyBase &other) {
+    m_columnBinding = other.m_columnBinding;
+}
+
 Property::Property(const char *name)
-    : Column(name) {
+    : Column(name)
+    , PropertyBase(nullptr) {
 }
 
 Property::Property(const std::string &name)
-    : Column(name) {
+    : Column(name)
+    , PropertyBase(nullptr) {
 }
 
 Property::Property(const Column &column)
-    : Column(column) {
+    : Column(column)
+    , PropertyBase(nullptr) {
+}
+
+Property::Property(const char *name, const std::shared_ptr<ColumnBinding> &columnBinding)
+    : Column(name)
+    , PropertyBase(columnBinding) {
+}
+
+Property::Property(const Column &column, const std::shared_ptr<ColumnBinding> &columnBinding)
+    : Column(column)
+    , PropertyBase(columnBinding) {
+}
+
+ResultList Property::distinct() const {
+    return ResultList(*this).distinct();
 }
 
 Property Property::inTable(const std::string &table) const {
@@ -41,10 +75,9 @@ Order Property::order(OrderTerm term) const {
     return Order(*this, term);
 }
 
-//Index Property::index(OrderTerm term) const
-//{
-//    return ColumnIndex(*this, (OrderTerm) term);
-//}
+ColumnIndex Property::index(OrderTerm term) const {
+    return ColumnIndex(*this, (OrderTerm)term);
+}
 
 Expr Property::avg(bool distinct) const {
     return Expr(*this).avg(distinct);
@@ -100,6 +133,14 @@ Expr Property::upper(bool distinct) const {
 
 Expr Property::round(bool distinct) const {
     return Expr(*this).round(distinct);
+}
+
+ColumnDef Property::def(ColumnType type, bool isPrimary, OrderTerm term, bool autoIncrement) const {
+    ColumnDef columnDef(*this, type);
+    if (isPrimary) {
+        columnDef.makePrimary(term, autoIncrement);
+    }
+    return columnDef;
 }
 
 Expr Property::operator!() const {

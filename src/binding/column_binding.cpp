@@ -18,25 +18,35 @@
  * limitations under the License.
  */
 
-#ifndef sqlite_winq_update_value_hpp
-#define sqlite_winq_update_value_hpp
-
-#include <sqlite-winq/abstract/declare.hpp>
+#include <sqlite-winq/binding/column_binding.h>
 
 namespace SQLITEWINQ {
-class Column;
-class Expr;
 
-typedef std::pair<const Column, const Expr> UpdateValue;
+bool ColumnBinding::isPrimary() const {
+    return m_isPrimary;
+}
 
-class UpdateValueList : public std::list<const UpdateValue> {
-  public:
-    UpdateValueList();
-    UpdateValueList(const UpdateValue &expr);
-    UpdateValueList(std::initializer_list<const UpdateValue> il);
-};
+bool ColumnBinding::isAutoIncrement() const {
+    return m_isAutoIncrement;
+}
 
-}  //namespace SQLITEWINQ
+const ColumnDef ColumnBinding::getColumnDef() const {
+    return m_columnDef;
+}
 
-#endif /* sqlite_winq_update_value_hpp */
+void ColumnBinding::makePrimary(OrderTerm order, bool isAutoIncrement, Conflict conflict) {
+    m_isPrimary = true;
+    m_isAutoIncrement = isAutoIncrement;
+    m_columnDef.makePrimary(order, isAutoIncrement, conflict);
+}
+
+void ColumnBinding::makeNotNull() {
+    m_columnDef.makeNotNull();
+}
+
+void ColumnBinding::makeUnique() {
+    m_columnDef.makeUnique();
+}
+
+};  // namespace SQLITEWINQ
 

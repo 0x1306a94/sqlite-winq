@@ -18,25 +18,34 @@
  * limitations under the License.
  */
 
-#ifndef sqlite_winq_update_value_hpp
-#define sqlite_winq_update_value_hpp
+#ifndef sqlite_winq_runtime_base_accessor_hpp
+#define sqlite_winq_runtime_base_accessor_hpp
 
-#include <sqlite-winq/abstract/declare.hpp>
+#include <functional>
+#include <string>
 
 namespace SQLITEWINQ {
-class Column;
-class Expr;
 
-typedef std::pair<const Column, const Expr> UpdateValue;
-
-class UpdateValueList : public std::list<const UpdateValue> {
-  public:
-    UpdateValueList();
-    UpdateValueList(const UpdateValue &expr);
-    UpdateValueList(std::initializer_list<const UpdateValue> il);
+class RuntimeBaseAccessor {
+  protected:
+    using InstanceType = void *;
 };
 
-}  //namespace SQLITEWINQ
+template <typename PropertyType>
+class RuntimeAccessor : public RuntimeBaseAccessor {
+  public:
+    using Setter = std::function<void(InstanceType, PropertyType)>;
+    using Getter = std::function<PropertyType(InstanceType)>;
 
-#endif /* sqlite_winq_update_value_hpp */
+    RuntimeAccessor(const std::string &propertyName)
+        : getProperty(nullptr)
+        , setProperty(nullptr) {
+    }
+
+    const Setter setProperty;
+    const Getter getProperty;
+};
+
+};     // namespace SQLITEWINQ
+#endif /* sqlite_winq_runtime_base_accessor_hpp */
 

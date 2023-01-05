@@ -21,6 +21,7 @@
 #ifndef sqlite_winq_describable_hpp
 #define sqlite_winq_describable_hpp
 
+#include <iostream>
 #include <list>
 #include <string>
 #include <type_traits>
@@ -66,6 +67,12 @@ class Describable {
     Describable(const char *description);
 
     std::string m_description;
+
+  public:
+    friend std::ostream &operator<<(std::ostream &os, const Describable &desc) {
+        os << desc.getDescription();
+        return os;
+    }
 };
 
 }  //namespace SQLITEWINQ

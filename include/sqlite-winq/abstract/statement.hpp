@@ -53,6 +53,11 @@ class Statement : public Describable {
     Statement();
     virtual ~Statement();
     virtual Statement::Type getStatementType() const = 0;
+
+    friend std::ostream &operator<<(std::ostream &os, const Statement &s) {
+        os << s.getDescription() << ";";
+        return os;
+    }
 };
 
 }  //namespace SQLITEWINQ
