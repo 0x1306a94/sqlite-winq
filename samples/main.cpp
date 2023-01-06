@@ -41,10 +41,12 @@ int main() {
     }
 
     do {
-        const PropertyList propertyList(MessageSchema::AllProperties());
-        const StatementInsert &insert = StatementInsert{}
-                                            .insert(MessageSchema::TableName(), propertyList, Conflict::Replace)
-                                            .values(ExprList(propertyList.size(), Expr::BindParameter));
+        const PropertyList propertyList{
+            MessageSchema::AllProperties(),
+        };
+        StatementInsert insert = StatementInsert{}
+                                     .insert(MessageSchema::TableName(), propertyList, Conflict::Replace)
+                                     .values(ExprList(propertyList.size(), Expr::BindParameter));
         std::cout << insert << std::endl;
     } while (0);
     return 0;
