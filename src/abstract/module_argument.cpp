@@ -45,6 +45,10 @@ ModuleArgumentList::ModuleArgumentList(const ModuleArgument &expr)
     : std::list<const ModuleArgument>({expr}) {
 }
 
+ModuleArgumentList::ModuleArgumentList(size_type __n, const ModuleArgument &expr)
+    : std::list<const ModuleArgument>(__n, expr) {
+}
+
 ModuleArgumentList::ModuleArgumentList(std::initializer_list<const ModuleArgument> il)
     : std::list<const ModuleArgument>(il.begin(), il.end()) {
 }

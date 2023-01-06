@@ -61,6 +61,7 @@ class TableConstraintList : public std::list<const TableConstraint> {
   public:
     TableConstraintList();
     TableConstraintList(const TableConstraint &expr);
+    TableConstraintList(size_type __n, const TableConstraint &expr);
     TableConstraintList(std::initializer_list<const TableConstraint> il);
 };
 

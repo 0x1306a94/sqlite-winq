@@ -40,6 +40,7 @@ class SubqueryList : public std::list<const Subquery> {
   public:
     SubqueryList();
     SubqueryList(const Subquery &expr);
+    SubqueryList(size_type __n, const Subquery &expr);
     SubqueryList(std::initializer_list<const Subquery> il);
 };
 

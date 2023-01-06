@@ -53,6 +53,10 @@ ColumnResultList::ColumnResultList(const ColumnResult &expr)
     : std::list<const ColumnResult>({expr}) {
 }
 
+ColumnResultList::ColumnResultList(size_type __n, const ColumnResult &expr)
+    : std::list<const ColumnResult>(__n, expr) {
+}
+
 ColumnResultList::ColumnResultList(std::initializer_list<const ColumnResult> il)
     : std::list<const ColumnResult>(il.begin(), il.end()) {
 }

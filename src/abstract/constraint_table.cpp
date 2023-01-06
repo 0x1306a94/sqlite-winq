@@ -57,6 +57,10 @@ TableConstraintList::TableConstraintList(const TableConstraint &expr)
     : std::list<const TableConstraint>({expr}) {
 }
 
+TableConstraintList::TableConstraintList(size_type __n, const TableConstraint &expr)
+    : std::list<const TableConstraint>(__n, expr) {
+}
+
 TableConstraintList::TableConstraintList(std::initializer_list<const TableConstraint> il)
     : std::list<const TableConstraint>(il.begin(), il.end()) {
 }

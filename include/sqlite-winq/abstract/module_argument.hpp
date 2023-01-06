@@ -37,6 +37,7 @@ class ModuleArgumentList : public std::list<const ModuleArgument> {
   public:
     ModuleArgumentList();
     ModuleArgumentList(const ModuleArgument &expr);
+    ModuleArgumentList(size_type __n, const ModuleArgument &expr);
     ModuleArgumentList(std::initializer_list<const ModuleArgument> il);
 };
 

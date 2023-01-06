@@ -347,6 +347,10 @@ PropertyList::PropertyList(const Property &property)
     : std::list<const Property>({property}) {
 }
 
+PropertyList::PropertyList(size_type __n, const Property &property)
+    : std::list<const Property>(__n, property) {
+}
+
 PropertyList::PropertyList(std::initializer_list<const Property> il)
     : std::list<const Property>(il) {
 }

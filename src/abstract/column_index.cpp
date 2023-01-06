@@ -48,6 +48,10 @@ ColumnIndexList::ColumnIndexList(const ColumnIndex &expr)
     : std::list<const ColumnIndex>({expr}) {
 }
 
+ColumnIndexList::ColumnIndexList(size_type __n, const ColumnIndex &expr)
+    : std::list<const ColumnIndex>(__n, expr) {
+}
+
 ColumnIndexList::ColumnIndexList(std::initializer_list<const ColumnIndex> il)
     : std::list<const ColumnIndex>(il.begin(), il.end()) {
 }

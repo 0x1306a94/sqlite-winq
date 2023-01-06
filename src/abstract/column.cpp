@@ -57,6 +57,10 @@ ColumnList::ColumnList(const Column &expr)
     : std::list<const Column>({expr}) {
 }
 
+ColumnList::ColumnList(size_type __n, const Column &c)
+    : std::list<const Column>(__n, c) {
+}
+
 ColumnList::ColumnList(std::initializer_list<const Column> il)
     : std::list<const Column>(il.begin(), il.end()) {
 }

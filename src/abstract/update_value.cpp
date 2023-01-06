@@ -32,6 +32,10 @@ UpdateValueList::UpdateValueList(const UpdateValue &expr)
     : std::list<const UpdateValue>({expr}) {
 }
 
+UpdateValueList::UpdateValueList(size_type __n, const UpdateValue &expr)
+    : std::list<const UpdateValue>(__n, expr) {
+}
+
 UpdateValueList::UpdateValueList(std::initializer_list<const UpdateValue> il)
     : std::list<const UpdateValue>(il.begin(), il.end()) {
 }

@@ -41,6 +41,7 @@ class ColumnResultList : public std::list<const ColumnResult> {
   public:
     ColumnResultList();
     ColumnResultList(const ColumnResult &expr);
+    ColumnResultList(size_type __n, const ColumnResult &expr);
     ColumnResultList(std::initializer_list<const ColumnResult> il);
 };
 

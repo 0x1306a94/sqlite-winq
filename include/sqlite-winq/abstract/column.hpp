@@ -43,6 +43,7 @@ class ColumnList : public std::list<const Column> {
   public:
     ColumnList();
     ColumnList(const Column &c);
+    ColumnList(size_type __n, const Column &c);
     ColumnList(std::initializer_list<const Column> il);
 };
 }  //namespace SQLITEWINQ

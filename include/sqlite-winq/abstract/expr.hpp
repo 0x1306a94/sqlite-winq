@@ -238,6 +238,7 @@ class ExprList : public std::list<const Expr> {
   public:
     ExprList();
     ExprList(const Expr &expr);
+    ExprList(size_type __n, const Expr &expr);
     ExprList(std::initializer_list<const Expr> il);
 };
 

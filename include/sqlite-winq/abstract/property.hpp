@@ -149,6 +149,7 @@ class PropertyList : public std::list<const Property> {
   public:
     PropertyList();
     PropertyList(const Property &property);
+    PropertyList(size_type __n, const Property &property);
     PropertyList(std::initializer_list<const Property> il);
 
     PropertyList inTable(const std::string &tableName) const;

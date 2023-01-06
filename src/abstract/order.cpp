@@ -51,6 +51,10 @@ OrderList::OrderList(const Order &expr)
     : std::list<const Order>({expr}) {
 }
 
+OrderList::OrderList(size_type __n, const Order &expr)
+    : std::list<const Order>(__n, expr) {
+}
+
 OrderList::OrderList(std::initializer_list<const Order> il)
     : std::list<const Order>(il.begin(), il.end()) {
 }

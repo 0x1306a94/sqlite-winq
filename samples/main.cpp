@@ -15,7 +15,7 @@ int main() {
     std::cout << MessageSchema::TableName() << std::endl;
 
     std::cout << StatementPragma{}.pragma(Pragma::UserVersion, 1) << std::endl;
-    
+
     std::cout << MessageSchema::uid().inTable(MessageSchema::TableName()).count().as(MessageSchema::id()) << std::endl;
 
     const ResultList res{
@@ -39,6 +39,14 @@ int main() {
             std::cout << statement << std::endl;
         }
     }
+
+    do {
+        const PropertyList propertyList(MessageSchema::AllProperties());
+        const StatementInsert &insert = StatementInsert{}
+                                            .insert(MessageSchema::TableName(), propertyList, Conflict::Replace)
+                                            .values(ExprList(propertyList.size(), Expr::BindParameter));
+        std::cout << insert << std::endl;
+    } while (0);
     return 0;
 }
 

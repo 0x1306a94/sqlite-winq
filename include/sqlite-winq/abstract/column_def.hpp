@@ -76,6 +76,7 @@ class ColumnDefList : public std::list<const ColumnDef> {
   public:
     ColumnDefList();
     ColumnDefList(const ColumnDef &def);
+    ColumnDefList(size_type __n, const ColumnDef &def);
     ColumnDefList(std::initializer_list<const ColumnDef> il);
 };
 }  //namespace SQLITEWINQ

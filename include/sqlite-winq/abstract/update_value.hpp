@@ -33,6 +33,7 @@ class UpdateValueList : public std::list<const UpdateValue> {
   public:
     UpdateValueList();
     UpdateValueList(const UpdateValue &expr);
+    UpdateValueList(size_type __n, const UpdateValue &expr);
     UpdateValueList(std::initializer_list<const UpdateValue> il);
 };
 

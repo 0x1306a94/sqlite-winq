@@ -53,6 +53,10 @@ SubqueryList::SubqueryList(const Subquery &expr)
     : std::list<const Subquery>({expr}) {
 }
 
+SubqueryList::SubqueryList(size_type __n, const Subquery &expr)
+    : std::list<const Subquery>(__n, expr) {
+}
+
 SubqueryList::SubqueryList(std::initializer_list<const Subquery> il)
     : std::list<const Subquery>(il.begin(), il.end()) {
 }

@@ -37,6 +37,7 @@ class ColumnIndexList : public std::list<const ColumnIndex> {
   public:
     ColumnIndexList();
     ColumnIndexList(const ColumnIndex &expr);
+    ColumnIndexList(size_type __n, const ColumnIndex &expr);
     ColumnIndexList(std::initializer_list<const ColumnIndex> il);
 };
 

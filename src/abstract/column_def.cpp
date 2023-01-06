@@ -128,6 +128,10 @@ ColumnDefList::ColumnDefList(const ColumnDef &expr)
     : std::list<const ColumnDef>({expr}) {
 }
 
+ColumnDefList::ColumnDefList(size_type __n, const ColumnDef &def)
+    : std::list<const ColumnDef>(__n, def) {
+}
+
 ColumnDefList::ColumnDefList(std::initializer_list<const ColumnDef> il)
     : std::list<const ColumnDef>(il.begin(), il.end()) {
 }

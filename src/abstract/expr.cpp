@@ -492,6 +492,10 @@ ExprList::ExprList(const Expr &expr)
     : std::list<const Expr>({expr}) {
 }
 
+ExprList::ExprList(size_type __n, const Expr &expr)
+    : std::list<const Expr>(__n, expr) {
+}
+
 ExprList::ExprList(std::initializer_list<const Expr> il)
     : std::list<const Expr>(il.begin(), il.end()) {
 }

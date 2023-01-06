@@ -40,6 +40,7 @@ class OrderList : public std::list<const Order> {
   public:
     OrderList();
     OrderList(const Order &expr);
+    OrderList(size_type __n, const Order &expr);
     OrderList(std::initializer_list<const Order> il);
 };
 
