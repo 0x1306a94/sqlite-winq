@@ -53,8 +53,8 @@ public: \
 #define SQLITE_WINQ_FIELD(TYPE, propertyName) \
     TYPE propertyName;
 
-#define SQLITE_WINQ_PROPERTY(TYPE, propertyName)                          \
-    using SQLITE_WINQ_CONCAT_JOIN(propertyName, _, type) = typename TYPE; \
+#define SQLITE_WINQ_PROPERTY(TYPE, propertyName)                 \
+    using SQLITE_WINQ_CONCAT_JOIN(propertyName, _, type) = TYPE; \
     static const SQLITEWINQ::Property &propertyName();
 
 //Synthesize - implement column

@@ -19,7 +19,7 @@ class MessageSchema {
     SQLITE_WINQ_DECLARE_BEGIN
 
     SQLITE_WINQ_PROPERTY(std::int64_t, id)
-    SQLITE_WINQ_PROPERTY(std::string, uid)
+    SQLITE_WINQ_PROPERTY(void *, uid)
     SQLITE_WINQ_PROPERTY(std::string, name)
     SQLITE_WINQ_PROPERTY(std::string, avatar)
 

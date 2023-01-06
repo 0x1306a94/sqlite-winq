@@ -22,10 +22,11 @@
 #define sqlite_winq_column_binding_hpp
 
 #include <sqlite-winq/abstract/column_def.hpp>
+#include <sqlite-winq/abstract/column_type.hpp>
 #include <sqlite-winq/abstract/declare.hpp>
 #include <sqlite-winq/abstract/order.hpp>
 #include <sqlite-winq/abstract/property.hpp>
-#include <sqlite-winq/accessor/runtime_cpp_accessor.h>
+#include <sqlite-winq/accessor/cpp_accessor.h>
 
 namespace SQLITEWINQ {
 
@@ -38,7 +39,7 @@ class ColumnBinding {
         T * = nullptr,
         typename std::enable_if<ColumnIsCppType<T>::value>::type * = nullptr)
         : columnName(cn)
-        , accessor(new RuntimeCppAccessor<T>(pn))
+        , accessor(new CppAccessor<ColumnInfo<T>::type>())
         , m_columnDef(cn, accessor->getColumnType())
         , m_isAutoIncrement(false)
         , m_isPrimary(false) {
