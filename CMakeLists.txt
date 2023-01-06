@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.6)
 
 project(sqlite-winq CXX)
 
+option(SQLITE_WINQ_BUILD_EXAMPLES "Build examples" OFF)
 
 # for build
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility-inlines-hidden")
@@ -94,4 +95,8 @@ list(APPEND SELF_SRC_FILES ${SELF_TEMP_SRC_FILES})
 
 add_library(${PROJECT_NAME} STATIC ${SELF_SRC_FILES})
 
-add_subdirectory(./samples)
+if(SQLITE_WINQ_BUILD_EXAMPLES)
+  add_subdirectory(./samples)
+endif()
+
+
