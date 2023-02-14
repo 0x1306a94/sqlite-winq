@@ -41,8 +41,6 @@ class Expr;
 class JoinClause;
 class Order;
 class Pragma;
-class StatementHandle;
-class Handle;
 class ModuleArgument;
 class Statement;
 class StatementAlterTable;
