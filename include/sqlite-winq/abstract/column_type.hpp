@@ -205,7 +205,29 @@ struct ColumnInfo<T, typename std::enable_if<ColumnIsBLOBType<T>::value>::type>
 
 const char *ColumnTypeName(ColumnType type);
 
+template <typename T, typename Enable = void>
+struct ColumnRedirectionNullInfo : public std::false_type {
+};
+
+template <typename T>
+struct ColumnRedirectionNullInfo<
+    T,
+    typename std::enable_if<(ColumnIsInteger32Type<T>::value || ColumnIsInteger64Type<T>::value || ColumnIsFloatType<T>::value || ColumnIsTextType<T>::value || ColumnIsBLOBType<T>::value)>::type>
+    : public std::true_type {
+    static constexpr const ColumnType type = ColumnType::Null;
+};
+
 }  //namespace SQLITEWINQ
 
-#endif /* sqlite_winq_column_type_hpp */
+#ifndef __SQLITE_WINQ_COLUMN_INFO__
+#define __SQLITE_WINQ_COLUMN_INFO__
+#define _SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(a, b, c) a##b##c
+#define SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(a, b, c) _SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(a, b, c)
 
+#define sqlite_winq_column_type(SCHEMA, COLUME) SQLITEWINQ::ColumnInfo<typename SCHEMA::SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(COLUME, _, type)>::type
+
+#define sqlite_winq_column_redirection_null_type(SCHEMA, COLUME) SQLITEWINQ::ColumnRedirectionNullInfo<typename SCHEMA::SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(COLUME, _, type)>::type
+
+#endif
+
+#endif /* sqlite_winq_column_type_hpp */

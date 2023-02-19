@@ -18,6 +18,8 @@ int main() {
 
     std::cout << MessageSchema::uid().inTable(MessageSchema::TableName()).count().as(MessageSchema::id()) << std::endl;
 
+    auto v = sqlite_winq_column_redirection_null_type(MessageSchema, uid);
+
     const ResultList res{
         MessageSchema::AllProperties(),
     };
@@ -51,4 +53,3 @@ int main() {
     } while (0);
     return 0;
 }
-
