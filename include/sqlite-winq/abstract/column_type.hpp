@@ -219,14 +219,22 @@ struct ColumnRedirectionNullInfo<
 
 }  //namespace SQLITEWINQ
 
+//#ifndef __SQLITE_WINQ_COLUMN_INFO__
+//#define __SQLITE_WINQ_COLUMN_INFO__
+//#define _SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(a, b, c) a##b##c
+//#define SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(a, b, c) _SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(a, b, c)
+//
+//#define sqlite_winq_column_type(SCHEMA, COLUME) SQLITEWINQ::ColumnInfo<typename SCHEMA::SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(COLUME, _, type)>::type
+//
+//#define sqlite_winq_column_redirection_null_type(SCHEMA, COLUME) SQLITEWINQ::ColumnRedirectionNullInfo<typename SCHEMA::SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(COLUME, _, type)>::type
+//
+//#endif
+
 #ifndef __SQLITE_WINQ_COLUMN_INFO__
 #define __SQLITE_WINQ_COLUMN_INFO__
-#define _SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(a, b, c) a##b##c
-#define SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(a, b, c) _SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(a, b, c)
 
-#define sqlite_winq_column_type(SCHEMA, COLUME) SQLITEWINQ::ColumnInfo<typename SCHEMA::SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(COLUME, _, type)>::type
-
-#define sqlite_winq_column_redirection_null_type(SCHEMA, COLUME) SQLITEWINQ::ColumnRedirectionNullInfo<typename SCHEMA::SQLITE_WINQ_COLUMN_INFO_CONCAT_JOIN(COLUME, _, type)>::type
+#define sqlite_winq_column_type(T, C) SQLITEWINQ::ColumnInfo<typename T::C>::type
+#define sqlite_winq_column_redirection_null_type(T, C) SQLITEWINQ::ColumnRedirectionNullInfo<typename T::C>::type
 
 #endif
 
